@@ -63,13 +63,22 @@ class Solution {
 
 ```java
 class Solution {
-	public int hammingDistance(int x, int y) {
-        int xOR = x ^ y;
-        int sum = 0;
-        for (int i = 0; i < 32; i++) {
-            sum += xOR >> i & 1;
+    public static int bitSum(int target, int position) {
+    	if (posiiton > 31) {
+            return 0;
         }
-        return sum;
+        return ((target >> position) & 1) +  bitSum(target, position + 1);
+    }
+    
+	public int hammingDistance(int x, int y) {
+ 		int xOR = x ^ y;
+        return bitSum(xOR, 0);
     }
 }
 ```
+
+## 풀이 후기
+
+- 재귀문으로 구현할 수 있어서 좋았다. default parameter 와 같은 기능이 있어서 굳이 넣어줄 필요가 없는 인자들은 제거 할 수 없었던 것이 아쉽다.
+- bit 연산자에 대해서 처음 배웠다. 쓸만한 용도를 조금 더 찾아봐야 겠다.
+- 나노 계획(작은 수준의 계획-> 실행 -> 평가)을 적극적으로 수행했다. 당면한 과제가 무엇인지 정의하고 어떻게 구현할지 생각하다보니 자연스럽게 TDD 와 비슷해져갔다.
